@@ -6,7 +6,7 @@ RUN sed -i 's|http://deb.debian.org/debian|http://archive.debian.org/debian|g' /
     sed -i '/stretch-updates/d' /etc/apt/sources.list && \
     echo 'Acquire::Check-Valid-Until "false";' > /etc/apt/apt.conf.d/99no-check-valid-until
 
-# タイムゾーン設定
+# タイムゾーン環境変数（これはPHPには直接効かないけどログなどに有用）
 ENV TZ=Asia/Tokyo
 
 # Apacheのドキュメントルート（CakePHPのwebroot）
@@ -26,4 +26,9 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-install pdo pdo_mysql mbstring gd \
     && a2enmod rewrite
 
+# ⚠️ PHP のタイムゾーン設定を php.ini に追加（PHP5.6向けのDebianパス）
+RUN echo "date.timezone = Asia/Tokyo" >> /usr/local/etc/php/php.ini || \
+    echo "date.timezone = Asia/Tokyo" >> /etc/php5/apache2/php.ini
+
+# 作業ディレクトリを指定
 WORKDIR /var/www/html
