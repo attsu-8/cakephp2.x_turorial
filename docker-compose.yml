@@ -22,6 +22,7 @@ services:
       MYSQL_DATABASE: cakephp_db
       MYSQL_USER: cakeuser
       MYSQL_PASSWORD: cakepass
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     ports:
       - "3306:3306"
     volumes:
