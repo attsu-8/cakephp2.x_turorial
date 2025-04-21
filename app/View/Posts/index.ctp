@@ -6,6 +6,7 @@
     <tr>
         <th>Id</th>
         <th>Title</th>
+        <th>User</th>
         <th>Actions</th>
         <th>Created</th>
     </tr>
@@ -23,6 +24,13 @@
                 );
             ?>
         </td>
+        <td>
+            <?php
+                echo $this->Html->link(
+                    $post['Post']['user_id'],
+                    array('controller' => 'users', 'action' => 'view', $post['Post']['user_id'])
+                );
+            ?>
         <td>
             <?php
                 echo $this->Form->postLink(
